@@ -33,9 +33,9 @@ setTimeout(function () {
 
 ## API
 
-### `new CacheSet(conf)`
+### `new CacheSet(conf[, iterable])`
 
-Create a new `CacheSet` instance. `conf` is required and must have to numeric properties: `conf.maxAge` and `conf.maxSize`.
+Create a new `CacheSet` instance. `conf` is required and must have to numeric properties: `conf.maxAge` and `conf.maxSize`. `iterable` is optional and gets passed on to the `Set` constructor.
 
 ***
 
