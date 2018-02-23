@@ -2,15 +2,15 @@ class CacheSet extends Set {
 
   constructor (ttl, iterable) {
     super()
-    for (var item of (iterable || [])) this.add(ttl, item)
+    if (iterable) this.add(ttl, ...iterable)
   }
 
-  add (ttl, value) {
-    super.add(value)
+  add (ttl, ...values) {
     var self = this
+    for (var value of values) super.add(value)
     var timeout = setTimeout(function () {
-      self.delete(value)
-    }, ttl)
+        for (var value of values) self.delete(value)
+      }, ttl)
     if (timeout.unref) timeout.unref()
     return this
   }
