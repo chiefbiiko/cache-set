@@ -1,19 +1,17 @@
 class CacheSet extends Set {
 
-  constructor (conf, iterable) {
-    super(iterable)
-    this._conf = conf
-    this._timeout = null
+  constructor (ttl, iterable) {
+    super()
+    for (var item of (iterable || [])) this.add(ttl, item)
   }
 
-  add (value) {
-    if (this.size >= this._conf.maxSize) return this
+  add (ttl, value) {
     super.add(value)
     var self = this
-    this._timeout = setTimeout(function () {
+    var timeout = setTimeout(function () {
       self.delete(value)
-    }, this._conf.maxAge)
-    if (this._timeout.unref) this._timeout.unref()
+    }, ttl)
+    if (timeout.unref) timeout.unref()
     return this
   }
 
