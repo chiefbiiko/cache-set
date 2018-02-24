@@ -5,12 +5,12 @@ class CacheSet extends Set {
     if (iterable) this.add(ttl, ...iterable)
   }
 
-  add (ttl, ...values) {
+  add (ttl, ...items) {
     var self = this
-    for (var value of values) super.add(value)
+    for (var item of items) super.add(item)
     var timeout = setTimeout(function () {
-        for (var value of values) self.delete(value)
-      }, ttl)
+      for (var item of items) self.delete(item)
+    }, ttl)
     if (timeout.unref) timeout.unref()
     return this
   }

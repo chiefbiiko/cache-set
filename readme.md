@@ -20,22 +20,28 @@ npm install --save cache-set
 
 ``` js
 var CacheSet = require('cache-set')
-var cache = new CacheSet({ maxAge: 419, maxSize: 419 })
+var cache = new CacheSet()
 
-cache.add(419)
+cache.add(27, 419) // time-to-live, value
+
+console.log(cache, cache.size)
 
 setTimeout(function () {
-  console.log(cache.size) // will print 0
-}, 420)
+  console.log(cache, cache.size) // will be empty
+}, 28)
 ```
 
 ***
 
 ## API
 
-### `new CacheSet(conf[, iterable])`
+### `var cache = new CacheSet([ttl, iterable])`
 
-Create a new `CacheSet` instance. `conf` is required and must have to numeric properties: `conf.maxAge` and `conf.maxSize`. `iterable` is optional and gets passed on to the `Set` constructor.
+Create a new `CacheSet` instance. If `iterable` is provided, and `ttl` is a number (time to live in ms), all passed items get added to the set during instantiation.
+
+### `cache.add([ttl, ...items])`
+
+Provide `ttl`, time to live in ms, and a variable number of items that will get deleted from the set at the end of their lifetime.
 
 ***
 
