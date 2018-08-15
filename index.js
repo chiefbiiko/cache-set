@@ -1,5 +1,3 @@
-const isUint = x => typeof x === 'number' && x % 1 === 0 && x >= 0
-
 class CacheSet extends Set {
 
   constructor (ttl, iterable, hook) {
@@ -9,18 +7,18 @@ class CacheSet extends Set {
   }
 
   add (ttl, ...items) { // last item can be a willDelete hook
-    if (!isUint(ttl)) throw new TypeError('ttl is not an unsigned integer')
-
     var hook
     if (typeof items[items.length - 1] === 'function') hook = items.pop()
     else hook = doDelete => doDelete()
 
+    const doDelete = () => items.forEach(item => super.delete(item))
+    const willDelete = hook.bind(this, doDelete)
+
     items.forEach(item => super.add(item))
 
-    const doDelete = () => items.forEach(item => super.delete(item))
-    const timeout = setTimeout(hook.bind(this, doDelete), ttl)
-
+    const timeout = setTimeout(willDelete, ttl)
     if (timeout.unref) timeout.unref()
+
     return this
   }
 
