@@ -1,3 +1,5 @@
+const isUint = x => typeof x === 'number' && !isNaN(x) && x % 1 === 0 && x >= 0
+
 class CacheSet extends Set {
 
   constructor (ttl, iterable) {
@@ -6,13 +8,18 @@ class CacheSet extends Set {
   }
 
   add (ttl, ...items) {
-    var self = this
-    for (var item of items) super.add(item)
-    var timeout = setTimeout(function () {
-      for (var item of items) self.delete(item)
+    if (!isUint(ttl)) throw new TypeError('ttl is not an unsigned integer')
+    for (const item of items) super.add(item)
+    const timeout = setTimeout(() => {
+      for (const item of items) this.delete(item)
     }, ttl)
     if (timeout.unref) timeout.unref()
     return this
+  }
+
+  find (pred) {
+    for (const v of this.values())
+      if (pred(v)) return v
   }
 
 }
