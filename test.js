@@ -26,3 +26,16 @@ tape('find', t => {
   t.is(big, 36, 'found a number gt 21')
   t.end()
 })
+
+tape('willDelete cleanup hook', t => {
+  t.plan(3)
+  const cache = new CacheSet()
+  cache.add(419, 'fraud', doDelete => {
+    t.is(cache.size, 1, 'size 1 in willDelete hook')
+    t.true(cache.has('fraud'), 'has "fraud" in willDelete hook')
+    doDelete()
+  })
+  setTimeout(() => {
+    t.is(cache.size, 0, 'size 0 once ttl exceeded')
+  }, 500)
+})
