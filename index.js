@@ -1,4 +1,4 @@
-const isUint = x => typeof x === 'number' && !isNaN(x) && x % 1 === 0 && x >= 0
+const isUint = x => typeof x === 'number' && x % 1 === 0 && x >= 0
 
 class CacheSet extends Set {
 
