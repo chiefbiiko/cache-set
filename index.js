@@ -9,10 +9,10 @@ class CacheSet extends Set {
   add (ttl, ...items) { // last item can be a willDelete hook
     var hook
     if (typeof items[items.length - 1] === 'function') hook = items.pop()
-    else hook = doDelete => doDelete()
+    else hook = (...itemsAndDoDelete) => itemsAndDoDelete.pop()()
 
     const doDelete = () => items.forEach(item => super.delete(item))
-    const willDelete = hook.bind(this, doDelete)
+    const willDelete = hook.bind(this, ...items, doDelete)
 
     items.forEach(item => super.add(item))
 

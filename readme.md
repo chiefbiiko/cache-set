@@ -35,7 +35,7 @@ setTimeout(function () {
 
 ## API
 
-### `var cache = new CacheSet([ttl, iterable][, willDelete(doDelete)])`
+### `var cache = new CacheSet([ttl, iterable][, willDelete(value, doDelete)])`
 
 Create a new `CacheSet` instance. If `iterable` is provided all passed items get added to the set during instantiation, and deleted after `ttl`. If `willDelete` is a function it will be called as a cleanup hook before items are deleted from the set but after `ttl` has exceeded. Make sure to call the `doDelete` callback at the end of the `willDelete` hook to actually perform the deletion.
 

@@ -28,9 +28,10 @@ tape('find', t => {
 })
 
 tape('willDelete cleanup hook', t => {
-  t.plan(3)
+  t.plan(4)
   const cache = new CacheSet()
-  cache.add(419, 'fraud', doDelete => {
+  cache.add(419, 'fraud', (value, doDelete) => {
+    t.is(value, 'fraud', 'got the value passed in the willDelete hook')
     t.is(cache.size, 1, 'size 1 in willDelete hook')
     t.true(cache.has('fraud'), 'has "fraud" in willDelete hook')
     doDelete()
