@@ -1,7 +1,7 @@
 {
   "name": "cache-set",
-  "version": "0.2.3",
-  "description": "a Set cache, self-clearing",
+  "version": "0.3.0",
+  "description": "a Set cache, self-clearing, with willDelete hook",
   "main": "index.js",
   "scripts": {
     "test": "tape test.js"

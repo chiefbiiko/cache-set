@@ -27,6 +27,19 @@ class CacheSet extends Set {
       if (pred(v)) return v
   }
 
+  some (pred) {
+    for (const v of this.values())
+      if (pred(v)) return true
+    return false
+  }
+
+  every (pred) {
+    if (!this.size) return true
+    for (const v of this.values())
+      if (!pred(v)) return false
+    return true
+  }
+
 }
 
 module.exports = CacheSet

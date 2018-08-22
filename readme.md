@@ -47,6 +47,14 @@ Provide `ttl`, time to live in ms, and a variable number of items that will get 
 
 Find a value in the set. Equivalent to `Array.prototype.find`.
 
+### `cache.some(predicate)`
+
+Check if any `predicate(value)` is truthy. Equivalent to `Array.prototype.some`.
+
+### `cache.every(predicate)`
+
+Check if all `predicate(value)` are truthy. Equivalent to `Array.prototype.every`.
+
 ***
 
 ## License
